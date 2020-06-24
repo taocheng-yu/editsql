@@ -379,13 +379,13 @@ def postprocess(predictions, database_schema, remove_from=False):
 
 
 def read_prediction(pred_file):
-  print('Read prediction from', pred_file)
+  print('Reading prediction from the file:', pred_file)
   predictions = []
   with open(pred_file) as f:
     for line in f:
       pred = json.loads(line)
       predictions.append(pred)
-  print('Number of predictions', len(predictions))
+  print('Number of predictions =', len(predictions))
   return predictions
 
 def read_schema(table_schema_path):

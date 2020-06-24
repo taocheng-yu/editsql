@@ -241,9 +241,9 @@ def update_sums(metrics,
             flat_sequence == original_gold_query)
 
     if Metrics.CORRECT_TABLES in metrics:
-        assert database_username, "You did not provide a database username"
-        assert database_password, "You did not provide a database password"
-        assert database_timeout > 0, "Database timeout is 0 seconds"
+        assert database_username, "You need to provide a database username"
+        assert database_password, "You need to provide a database password"
+        assert database_timeout > 0, "Database timeout is 0 second currently"
 
         # Evaluate SQL
         if flat_sequence != original_gold_query:
@@ -316,7 +316,7 @@ def evaluate_utterance_sample(sample,
         metrics_sums[metric] = 0.
 
     predictions_file = open(name + "_predictions.json", "w")
-    print("Predicting with filename " + str(name) + "_predictions.json")
+    print("Prediction with the file named " + str(name) + "_predictions.json")
     progbar = get_progressbar(name, len(sample))
     progbar.start()
 
@@ -385,7 +385,7 @@ def evaluate_interaction_sample(sample,
                                 compute_metrics=False):
     """ Evaluates a sample of interactions. """
     predictions_file = open(name + "_predictions.json", "w")
-    print("Predicting with file " + str(name + "_predictions.json"))
+    print("Prediction with the file named " + str(name + "_predictions.json"))
     metrics_sums = {}
     for metric in metrics:
         metrics_sums[metric] = 0.
@@ -419,7 +419,7 @@ def evaluate_interaction_sample(sample,
                         feed_gold_query=gold_forcing)
                 torch.cuda.empty_cache()
         except RuntimeError as exception:
-            print("Failed on interaction: " + str(interaction.identifier))
+            print("Cannot succeed in the interaction: " + str(interaction.identifier))
             print(exception)
             print("\n\n")
             exit()
@@ -513,7 +513,7 @@ def evaluate_using_predicted_queries(sample,
                                      database_timeout=0,
                                      snippet_keep_age=1):
     predictions_file = open(name + "_predictions.json", "w")
-    print("Predicting with file " + str(name + "_predictions.json"))
+    print("Prediction with the file named " + str(name + "_predictions.json"))
     assert not gold_forcing
     metrics_sums = {}
     for metric in metrics:

@@ -127,7 +127,7 @@ def remove_from_with_join(format_sql_2):
 
           format_sql_3.append(sub_sql)
         else:
-          print('bad from clause in remove_from_with_join')
+          print('Bad from clause in remove_from_with_join')
           exit()
     else:
       format_sql_3.append(sub_sql)
@@ -169,7 +169,7 @@ def remove_from_without_join(format_sql_3, column_names, schema_tokens):
       elif len(sub_sql_tokens) == 2:
         table_name = sub_sql_tokens[1]
       else:
-        print('bad from clause in remove_from_without_join')
+        print('Bad from clause in remove_from_without_join')
         print(format_sql_3)
         exit()
     else:
@@ -477,8 +477,8 @@ def preprocess(dataset, remove_from=False):
   output_vocab = ['_UNK', '_EOS', '.', 't1', 't2', '=', 'select', 'from', 'as', 'value', 'join', 'on', ')', '(', 'where', 't3', 'by', ',', 'count', 'group', 'order', 'distinct', 't4', 'and', 'limit', 'desc', '>', 'avg', 'having', 'max', 'in', '<', 'sum', 't5', 'intersect', 'not', 'min', 'except', 'or', 'asc', 'like', '!', 'union', 'between', 't6', '-', 't7', '+', '/']
   if remove_from:
     output_vocab = ['_UNK', '_EOS', '=', 'select', 'value', ')', '(', 'where', ',', 'count', 'group_by', 'order_by', 'distinct', 'and', 'limit_value', 'limit', 'desc', '>', 'avg', 'having', 'max', 'in', '<', 'sum', 'intersect', 'not', 'min', 'except', 'or', 'asc', 'like', '!=', 'union', 'between', '-', '+', '/']
-  print('size of output_vocab', len(output_vocab))
-  print('output_vocab', output_vocab)
+  print('Size of output_vocab =', len(output_vocab))
+  print('Output_vocab:\n', output_vocab)
   print()
 
   if dataset == 'spider':
@@ -511,11 +511,11 @@ def preprocess(dataset, remove_from=False):
   column_names = {}
   database_schemas = {}
 
-  print('Reading spider database schema file')
+  print('Reading spider database schema file...')
   schema_tokens, column_names, database_schemas = read_database_schema(database_schema_filename, schema_tokens, column_names, database_schemas)
   num_database = len(schema_tokens)
-  print('num_database', num_database, len(train_database), len(dev_database))
-  print('total number of schema_tokens / databases:', len(schema_tokens))
+  print('Number of database =', num_database, len(train_database), len(dev_database))
+  print('Total number of schema tokens / databases:', len(schema_tokens))
 
   output_database_schema_filename = os.path.join(output_dir, 'tables.json')
   with open(output_database_schema_filename, 'w') as outfile:
@@ -528,7 +528,7 @@ def preprocess(dataset, remove_from=False):
   elif dataset == 'cosql':
     interaction_list = read_cosql(cosql_dir, database_schemas, column_names, output_vocab, schema_tokens, remove_from)
 
-  print('interaction_list length', len(interaction_list))
+  print('The length of interaction list =', len(interaction_list))
 
   train_interaction = []
   for database_id in interaction_list:
@@ -539,8 +539,8 @@ def preprocess(dataset, remove_from=False):
   for database_id in dev_database:
     dev_interaction += interaction_list[database_id]
 
-  print('train interaction: ', len(train_interaction))
-  print('dev interaction: ', len(dev_interaction))
+  print('Train interaction =', len(train_interaction))
+  print('Dev interaction =', len(dev_interaction))
 
   write_interaction(train_interaction, 'train', output_dir)
   write_interaction(dev_interaction, 'dev', output_dir)

@@ -147,14 +147,14 @@ def interpret_args():
         os.makedirs(args.logdir)
 
     if not (args.train or args.evaluate or args.interactive or args.attention):
-        raise ValueError('You need to be training or evaluating')
+        raise ValueError('You have not finished training or evaluating')
     if args.enable_testing and not args.evaluate:
-        raise ValueError('You should evaluate the model if enabling testing')
+        raise ValueError('You must evaluate the model if you want to enable testing')
 
     if args.train:
         args_file = args.logdir + '/args.log'
         if os.path.exists(args_file):
-            raise ValueError('Warning: arguments already exist in ' + str(args_file))
+            raise ValueError('Warning: arguments have been in the file: ' + str(args_file))
         with open(args_file, 'w') as infile:
             infile.write(str(args))
            
